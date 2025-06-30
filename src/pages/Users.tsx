@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { mockUsers } from "../data/mockData";
 import ExpandableListItem from "../components/ExpandableListItem";
 import {
   User,
@@ -120,7 +119,7 @@ const Users: React.FC = () => {
             statusColor={getStatusColor(user.status || "active")}
           >
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="space-y-4">
+               <div className="space-y-4">
                 <h4 className="font-semibold text-slate-900 flex items-center">
                   <User className="h-4 w-4 mr-2" />
                   Personal Information
@@ -152,8 +151,37 @@ const Users: React.FC = () => {
                     {/* not in backend */}
                   </div>
                 </div>
+                {user.audioUrl && (
+                  <div className="mt-4">
+                    <label className="block text-sm font-medium text-slate-700 mb-1">Voice Sample:</label>
+                    <audio controls src={user.audioUrl} className="w-full">
+                      Your browser does not support the audio element.
+                    </audio>
+                  </div>
+                )}
               </div>
 
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">Previous Complaints:</label>
+                {user.previousComplaints && user.previousComplaints.length > 0 ? (
+  <div className="flex flex-wrap gap-2">
+    {user.previousComplaints.map((complaint: any, idx: number) => (
+      <button
+        key={complaint.complaint_id || idx}
+        className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+        onClick={() => {
+          window.location.hash = `complaint-details-${user._id}`;
+        }}
+      >
+        {complaint.complaint_id}
+      </button>
+    ))}
+  </div>
+) : (
+  <span className="text-slate-500 text-sm">No previous complaints</span>
+)}
+              </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
               <div className="space-y-4">
                 <h4 className="font-semibold text-slate-900 flex items-center">
                   <Activity className="h-4 w-4 mr-2" />
